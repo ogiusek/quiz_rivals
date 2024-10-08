@@ -1,0 +1,40 @@
+# not configured yet just copied
+version: '3.9'
+services:
+  db:
+    image: postgres
+    restart: always
+    # set shared memory limit when using docker-compose
+    shm_size: 256mb
+    # or set shared memory limit when deploy via swarm stack
+    volumes:
+      - type: tmpfs
+        target: /docker/storage
+        tmpfs:
+          size: 268435456 # 256*2^20 bytes = 256Mb
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: database
+    # ports:
+    #   - 5432:5432
+  adminer:
+    # adminer is for db
+    image: adminer
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 8080:8080
+
+  api:
+    build:
+      context: .
+      dockerfile: dockerfile
+    depends_on:
+      - db
+    restart: always
+    environment:
+      - DATABASE_URL=Server=db;Database=database;Username=username;Password=password;
+    ports:
+      - 5000:5000

@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  ui:
+    build:
+      context: .
+      dockerfile: dockerfile
+      args:
+        UID: ${UID}
+    volumes:
+      - type: bind
+        source: ${PWD}/ui/src
+        target: /app
+    depends_on:
+      - api
+    restart: always
+    environment:
+      - SSR_API_URL=api:5000
+      - API_URL=localhost:5000
+    ports:
+      - 3000:3000

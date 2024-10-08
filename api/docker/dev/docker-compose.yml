@@ -28,8 +28,14 @@ services:
 
   api:
     build:
-      context: ./api
+      context: .
       dockerfile: dockerfile
+      args:
+        UID: ${UID}
+    volumes:
+      - type: bind
+        source: ${PWD}/api/src
+        target: /app
     depends_on:
       - db
     restart: always
@@ -37,16 +43,3 @@ services:
       - DATABASE_URL=Server=db;Database=database;Username=username;Password=password;
     ports:
       - 5000:5000
-
-  ui:
-    build:
-      context: ./ui
-      dockerfile: dockerfile
-    depends_on:
-      - api
-    restart: always
-    environment:
-      # here can be used localhost because its running in browser not in container
-      - API_URL=http://localhost:5000
-    ports:
-      - 3000:3000
