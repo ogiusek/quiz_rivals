@@ -1,0 +1,16 @@
+FROM ubuntu:latest
+
+SHELL ["/bin/bash", "-c"]
+ARG UID
+RUN if ! [[ "$UID" =~ ^[0-9]+$ ]]; then \
+  echo "Error: UID argument must be a number." && exit 1; \
+  fi
+RUN useradd --uid $UID -m admin; 
+USER admin
+
+WORKDIR /app
+VOLUME [ "/app" ]
+
+EXPOSE 3000
+
+CMD [ "sleep", "infinity" ]
