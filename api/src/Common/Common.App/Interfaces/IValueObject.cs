@@ -1,5 +1,3 @@
-using Common.Types;
-
 namespace Common.App.Interfaces;
 
 public abstract class ValueObject<T>
@@ -10,7 +8,6 @@ public abstract class ValueObject<T>
   {
     Value = value;
   }
-
 
   // public static implicit operator ValueObject<T>(T value) => new ValueObject<T>(value);
   public static implicit operator T(ValueObject<T> vo) => vo.Value;
