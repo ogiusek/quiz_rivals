@@ -1,5 +1,6 @@
 using System.Net.WebSockets;
 using Common.Abstractions;
+using Common.AbstractionsImplementations;
 using Common.Extensions;
 
 namespace Common.Types;
@@ -11,12 +12,14 @@ public sealed class AppWebSocket : IAppWebSocket
   public bool IsOpen => _webSocket.State == WebSocketState.Open;
 
   private readonly WebSocket _webSocket;
-  private Dictionary<Id, EventListener<WebSocketMessage>> _eventListeners = new();
+  private readonly Abstractions.IObserver<WebSocketMessage> _messageObserver;
+  public IObserverListener<WebSocketMessage> MessageListener => _messageObserver;
 
-  public AppWebSocket(Id id, WebSocket webSocket)
+  public AppWebSocket(Id id, WebSocket webSocket, Abstractions.IObserver<WebSocketMessage> messageObserver)
   {
     _id = id;
     _webSocket = webSocket;
+    _messageObserver = messageObserver;
 
     if (webSocket.State != WebSocketState.Open)
     {
@@ -25,11 +28,7 @@ public sealed class AppWebSocket : IAppWebSocket
   }
 
   public Task RunAsync() =>
-    _webSocket.OnMessage((message) =>
-      Task.WhenAll(_eventListeners.Values
-        .ToList()
-        .Select(listener => listener.Action(message)))
-    , CancellationToken.None);
+    _webSocket.OnMessage(_messageObserver.Notify, CancellationToken.None);
 
   public async Task<Res> Close()
   {
@@ -56,28 +55,6 @@ public sealed class AppWebSocket : IAppWebSocket
 
     await _webSocket.SendAsync(new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, CancellationToken.None);
 
-    return Res.Success();
-  }
-
-  public Res Subscribe(EventListener<WebSocketMessage> messageListener)
-  {
-    if (_eventListeners.ContainsKey(messageListener.Id))
-    {
-      return Res.Fail(new Exception("Already subscribed"));
-    }
-
-    _eventListeners.Add(messageListener.Id, messageListener);
-    return Res.Success();
-  }
-
-  public Res Unsubscribe(Id messageListenerId)
-  {
-    if (!_eventListeners.ContainsKey(messageListenerId))
-    {
-      return Res.Fail(new Exception("Cannot unsubscribe if not subscribed"));
-    }
-
-    _eventListeners.Remove(messageListenerId);
     return Res.Success();
   }
 }

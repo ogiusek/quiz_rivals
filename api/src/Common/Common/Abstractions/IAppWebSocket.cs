@@ -8,23 +8,13 @@ public interface IAppWebSocket
   public bool IsOpen { get; }
   public bool IsClosed => !IsOpen;
 
+  public IObserverListener<WebSocketMessage> MessageListener { get; }
+
   // summary: 
   //   Sends a message.
   // returns:
   //   Res (fails if socket is closed)
   public Task<Res> Send(WebSocketMessage message);
-
-  // summary:
-  //   Subscribes to events.
-  // returns:
-  //   Res (fails if EventListener is already subscribed)
-  public Res Subscribe(EventListener<WebSocketMessage> messageListener);
-
-  // summary:
-  //   Unsubscribes from events.
-  // returns:
-  //   Res (fails if EventListener is not subscribed)
-  public Res Unsubscribe(Id messageListenerId);
 
   // summary:
   //   Closes the socket.
