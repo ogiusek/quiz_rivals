@@ -1,0 +1,34 @@
+<script>
+  // do this with selenium
+  // handle e2e tests in tests/ instead of src/
+  // handle unit tests in for example for Common.App in Common.App.Tests
+  const ws = new WebSocket('ws://localhost:5000/ws/echo');
+
+  ws.onmessage = (e) => {
+    const data = e.data;
+    console.log(`server sent: "${data}"`);
+    const number = Number(e.data);
+    setTimeout(() => {
+      if (isNaN(number))
+        return ws.send(0);
+      return ws.send(number + 1);
+    }, 1000);
+  };
+
+  ws.onopen = () => {
+    // const message = Array(10000).fill(0).map((e, i) => `${i}`).join(',');
+    // console.log(message);
+    // ws.send(message);
+    ws.send('a');
+    // setTimeout(() => {
+    //   ws.send('simple text')
+    // }, 10);
+  }
+
+</script>
+
+<style>
+  body {
+    background-color: black;
+  }
+</style>
