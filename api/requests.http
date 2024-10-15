@@ -1,2 +1,10 @@
+@api = http://localhost:5000
+
 ###
-GET ws://localhost:5000/ws
+GET {{api}}/routes
+
+###
+GET {{api}}/ping
+
+###
+GET {{api}}/ws/ping
