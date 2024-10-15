@@ -9,6 +9,16 @@
   <ItemGroup>
     <ProjectReference Include="..\Quiz\Quiz.Api\Quiz.Api.csproj" />
     <ProjectReference Include="..\Users\Users.Api\Users.Api.csproj" />
+
+    <ProjectReference Include="..\Common\Common\Common.csproj" />
+    <ProjectReference Include="..\Common\Common.Api\Common.Api.csproj" />
+    <ProjectReference Include="..\Common\Common.App\Common.App.csproj" />
+    <ProjectReference Include="..\Common\Common.Core\Common.Core.csproj" />
+    <ProjectReference Include="..\Common\Common.DAL\Common.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  
 </Project>
