@@ -9,15 +9,21 @@ namespace Common.Api.Controllers;
 
 [AllowAnonymous]
 [Route("ws/[action]")]
-public class WebSocketEchoControler : CustomController
+public class WebSocketEchoControler : WsController
 {
   bool _isDevelopment;
-  Common.Abstractions.IObserver<WebSocketMessage> _observer;
+  Common.Abstractions.IObserver<WebSocketMessage> _messageObserver;
+  Common.Abstractions.IObserver _openObserver;
+  Common.Abstractions.IObserver _closeObserver;
+  CancellationToken _cancellationToken;
 
-  public WebSocketEchoControler(IHostEnvironment hostEnvironment, Common.Abstractions.IObserver<WebSocketMessage> observer)
+  public WebSocketEchoControler(IHostEnvironment hostEnvironment, Common.Abstractions.IObserver<WebSocketMessage> messageObserver, Common.Abstractions.IObserver openObserver, Common.Abstractions.IObserver closeObserver, IHostApplicationLifetime lifetime)
   {
     _isDevelopment = hostEnvironment.IsDevelopment();
-    _observer = observer;
+    _messageObserver = messageObserver;
+    _openObserver = openObserver;
+    _closeObserver = closeObserver;
+    _cancellationToken = lifetime.ApplicationStopping;
   }
 
   // [Route("echo")]
@@ -31,12 +37,12 @@ public class WebSocketEchoControler : CustomController
       return BadRequest("Request is not websocket connection request");
 
     WebSocket rawWebSocket = await context.WebSockets.AcceptWebSocketAsync();
-    AppWebSocket webSocket = new AppWebSocket(Id.New(), rawWebSocket, _observer);
+    AppWebSocket webSocket = new AppWebSocket(Id.New(), rawWebSocket, _messageObserver, _closeObserver, _openObserver);
 
     EventListener<WebSocketMessage> echoEvent = new(Id.New(), webSocket.Send);
-    webSocket.MessageListener.Subscribe(echoEvent);
+    webSocket.OnMessage.Subscribe(echoEvent);
 
-    await webSocket.RunAsync();
+    await webSocket.RunAsync(_cancellationToken);
 
     return new EmptyResult();
   }
