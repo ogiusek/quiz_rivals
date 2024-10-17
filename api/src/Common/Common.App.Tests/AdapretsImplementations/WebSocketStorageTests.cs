@@ -8,13 +8,13 @@ using Common.Types;
 
 namespace Common.App.Tests.AdapretsImplementations;
 
-public class WebSocketStorageTest
+public class WebSocketStorageTests
 {
   #region Arrange
   IWebSocketsStorage webSocketsStorage;
   IAppWebSocket webSocket;
 
-  public WebSocketStorageTest()
+  public WebSocketStorageTests()
   {
     webSocketsStorage = new WebSocketsStorage();
     webSocket = new AppWebSocketMock(
