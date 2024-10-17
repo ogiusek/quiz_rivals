@@ -11,6 +11,9 @@ using Common.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
+using Serilog.Events;
+using Users.Builder;
 
 namespace App;
 
@@ -21,12 +24,21 @@ public static class Program
     // create add builder and host it
     var builder = WebApplication.CreateBuilder(args);
 
+    LoggerConfiguration loggerConfiguration = new LoggerConfiguration();
+    loggerConfiguration.ReadFrom.Configuration(builder.Configuration);
+    Log.Logger = loggerConfiguration.CreateLogger();
+
+    builder.Host.UseSerilog();
+
     builder.Services
       .AddTransient(typeof(IHostEnvironment), e => builder.Environment);
 
     builder.Services
       .AddCommonApp()
       .AddCommonApi();
+
+    builder.Services
+      .AddUsersModule(builder.Configuration);
 
     builder.Services.AddControllers();
 
@@ -45,14 +57,4 @@ public static class Program
 
     app.Run();
   }
-
-  // public static void AddSubscribers(IAppWebSocket appWebSocket)
-  // {
-  //   EventListener<WebSocketMessage> messageListener = new EventListener<WebSocketMessage>(Id.New(), async (message) =>
-  //   {
-  //     await appWebSocket.Send(new WebSocketMessage(message.Message));
-  //   });
-
-  //   appWebSocket.MessageListener.Subscribe(messageListener);
-  // }
 }

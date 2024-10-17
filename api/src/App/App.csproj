@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Quiz\Quiz.Api\Quiz.Api.csproj" />
-    <ProjectReference Include="..\Users\Users.Api\Users.Api.csproj" />
+    <ProjectReference Include="..\Users\Users\Users.csproj" />
 
     <ProjectReference Include="..\Common\Common\Common.csproj" />
     <ProjectReference Include="..\Common\Common.Api\Common.Api.csproj" />
@@ -19,6 +19,12 @@
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
+
+    <PackageReference Include="serilog" Version="4.0.1" />
+    <PackageReference Include="serilog.AspNetCore" Version="8.0.2" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.4" />
+    <PackageReference Include="serilog.Sinks.Console" Version="6.0.0" />
   </ItemGroup>
   
 </Project>
