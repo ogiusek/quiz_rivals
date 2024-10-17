@@ -13,4 +13,4 @@ VOLUME [ "/app" ]
 
 EXPOSE 5000
 
-CMD [ "sleep", "infinity" ]
+CMD [ "dotnet", "watch" ]
