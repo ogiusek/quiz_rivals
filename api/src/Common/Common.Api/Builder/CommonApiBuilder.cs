@@ -10,11 +10,12 @@ public static class CommonApiBuilder
   public static IServiceCollection AddCommonApi(this IServiceCollection services)
   {
     services
-      .AddTransient<Common.Abstractions.IObserver<WebSocketMessage>, Observer<WebSocketMessage>>();
+      .AddTransient<Common.Abstractions.IObserver<WebSocketMessage>, Observer<WebSocketMessage>>()
+      .AddTransient<Common.Abstractions.IObserver, Observer>();
 
     Assembly assembly = typeof(CommonApiBuilder).Assembly;
     services
-      .AddMvc()
+      .AddControllers()
       .AddApplicationPart(assembly);
 
     return services;

@@ -4,7 +4,7 @@ using Common.Types;
 
 namespace Common.Tests.AbstractionsImplementations;
 
-public class ObserverTest
+public class ObserverTests
 {
   #region Arrange
 
@@ -16,7 +16,7 @@ public class ObserverTest
   string _expected = "abc";
   string? _notification;
 
-  public ObserverTest()
+  public ObserverTests()
   {
     _observer = new Observer<string>();
     _eventListener = new EventListener<string>(Id.New(), (notification) =>

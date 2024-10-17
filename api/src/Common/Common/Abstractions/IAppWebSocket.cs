@@ -8,7 +8,9 @@ public interface IAppWebSocket
   public bool IsOpen { get; }
   public bool IsClosed => !IsOpen;
 
-  public IObserverListener<WebSocketMessage> MessageListener { get; }
+  public IObserverListener<WebSocketMessage> OnMessage { get; }
+  public IObserverListener OnClose { get; }
+  public IObserverListener OnOpen { get; }
 
   // summary: 
   //   Sends a message.

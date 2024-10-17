@@ -2,7 +2,7 @@ using Common.Types;
 
 namespace Common.Tests.Types;
 
-public class ResTest
+public class ResTests
 {
   #region Arrange
 
@@ -10,7 +10,7 @@ public class ResTest
   Exception _exception;
   Exception _exception2;
 
-  public ResTest()
+  public ResTests()
   {
     _res = new Res();
     _exception = new Exception("Test exception");

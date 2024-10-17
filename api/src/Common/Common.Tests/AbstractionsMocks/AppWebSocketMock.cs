@@ -12,7 +12,7 @@ public class AppWebSocketMock : IAppWebSocket
   bool IAppWebSocket.IsOpen => _isOpen;
 
   Common.Abstractions.IObserver<WebSocketMessage> _messageObserver;
-  IObserverListener<WebSocketMessage> IAppWebSocket.MessageListener => _messageObserver;
+  IObserverListener<WebSocketMessage> IAppWebSocket.OnMessage => _messageObserver;
 
   public AppWebSocketMock(Id id, Common.Abstractions.IObserver<WebSocketMessage> messageObserver)
   {

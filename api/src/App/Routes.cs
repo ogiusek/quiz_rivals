@@ -8,7 +8,7 @@ namespace App;
 
 [AllowAnonymous]
 [Route("[action]")]
-public class PingController : CustomController
+public class PingController : ApiController
 {
   IEnumerable<EndpointDataSource> _endpoints;
 

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Common.Api.Abstractions;
 
-[Authorize]
-public abstract class CustomController : ControllerBase
+[Route("ws/[controller]")]
+public abstract class WsController : CustomController
 {
 }

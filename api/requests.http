@@ -5,6 +5,3 @@ GET {{api}}/routes
 
 ###
 GET {{api}}/ping
-
-###
-GET {{api}}/ws/ping

@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- IServiceCollection -->
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+
+    <!-- auth -->
+    <PackageReference Include="bcrypt.net-next" Version="4.0.3" /><!-- hash passwords -->
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
+
+    <!-- logging -->
+    <PackageReference Include="serilog" Version="4.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Users.Api\Users.Api.csproj" />
+    <ProjectReference Include="..\Users.App\Users.App.csproj" />
+    <ProjectReference Include="..\Users.Core\Users.Core.csproj" />
+    <ProjectReference Include="..\Users.DAL\Users.DAL.csproj" />
+  </ItemGroup>
+
+</Project>

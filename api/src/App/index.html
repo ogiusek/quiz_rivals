@@ -4,10 +4,15 @@
   // handle unit tests in for example for Common.App in Common.App.Tests
   const ws = new WebSocket('ws://localhost:5000/ws/echo');
 
+  let biggest = 0;
+
   ws.onmessage = (e) => {
     const data = e.data;
-    console.log(`server sent: "${data}"`);
     const number = Number(e.data);
+    // if (number % 1000 === 0)
+    //   console.log(`server sent: "${data}"`);
+    if (number > biggest)
+      biggest = number;
     setTimeout(() => {
       if (isNaN(number))
         return ws.send(0);
@@ -16,10 +21,15 @@
   };
 
   ws.onopen = () => {
+    setInterval(() => {
+      if (biggest === 0)
+        return;
+      console.log(biggest);
+    }, 1000);
     // const message = Array(10000).fill(0).map((e, i) => `${i}`).join(',');
     // console.log(message);
     // ws.send(message);
-    ws.send('a');
+    // ws.send('a');
     // setTimeout(() => {
     //   ws.send('simple text')
     // }, 10);
