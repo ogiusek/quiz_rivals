@@ -1,17 +1,16 @@
 using Common.Types;
-using FileSaver.Adapter.Types;
+using FileSaver.Adapter.ValueObjects;
+using FileSaver.Adapter.Exceptions;
 
 namespace FileSaver.Adapter;
 
 public interface IFileStorage
 {
-  // Exceptions:
-  //   UnsuportedFileExtensionException
+  /// <exception cref="UnsuportedFileExtensionException"></exception>
   Task<Res<FilePath>> Save(SavableFileStream stream);
 
   Task<SavableFileStream?> Get(FilePath path);
 
-  // Exceptions:
-  //   FileNotFoundException
+  /// <exception cref="FileNotFoundException"></exception>
   Task<Res> Remove(FilePath path);
 }

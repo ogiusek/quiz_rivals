@@ -1,4 +1,4 @@
-using FileSaver.Adapter.Types;
+using FileSaver.Adapter.ValueObjects;
 
 namespace FileSaver.Adapter;
 

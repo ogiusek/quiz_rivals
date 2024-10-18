@@ -3,7 +3,7 @@ using Common.Exceptions;
 using Common.Methods;
 using Common.Types;
 using FileSaver.Adapter.Exceptions;
-using FileSaver.Adapter.Types;
+using FileSaver.Adapter.ValueObjects;
 using Microsoft.Extensions.Configuration;
 
 namespace FileSaver.Adapter.Implementations;

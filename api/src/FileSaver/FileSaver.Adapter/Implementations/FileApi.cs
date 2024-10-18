@@ -1,5 +1,5 @@
 using Common.Exceptions;
-using FileSaver.Adapter.Types;
+using FileSaver.Adapter.ValueObjects;
 using Microsoft.Extensions.Configuration;
 
 namespace FileSaver.Adapter.Implementations;

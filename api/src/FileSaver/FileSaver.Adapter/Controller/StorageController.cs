@@ -1,5 +1,5 @@
 using Common.Api.Abstractions;
-using FileSaver.Adapter.Types;
+using FileSaver.Adapter.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;

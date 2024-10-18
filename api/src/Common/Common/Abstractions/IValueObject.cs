@@ -1,6 +1,6 @@
 using Common.Types;
 
-namespace Common.App.Abstractions;
+namespace Common.Abstractions;
 
 public interface IValueObject<T>
 {
