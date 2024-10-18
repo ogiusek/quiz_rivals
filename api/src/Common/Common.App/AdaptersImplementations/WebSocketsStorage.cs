@@ -4,7 +4,7 @@ using Common.Types;
 
 namespace Common.App.AdaptersImplementations;
 
-public sealed class WebSocketsStorage : IWebSocketsStorage
+internal sealed class WebSocketsStorage : IWebSocketsStorage
 {
 #nullable enable
   private readonly Dictionary<Id, IAppWebSocket> _webSockets = new();
