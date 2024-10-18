@@ -1,6 +1,6 @@
-using FileSaver.Adapter.Types;
+using FileSaver.Adapter.ValueObjects;
 
-namespace FileSaver.Adapter.Tests.Types;
+namespace FileSaver.Adapter.ValueObjects.Types;
 
 public class SavableFileStreamTests
 {

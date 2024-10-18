@@ -1,4 +1,4 @@
-namespace FileSaver.Adapter.Tests;
+namespace FileSaver.Adapter.ValueObjects;
 
 public class UnitTest1
 {

@@ -1,9 +1,9 @@
 using Common.Types;
 using FileSaver.Adapter.Implementations;
-using FileSaver.Adapter.Types;
+using FileSaver.Adapter.ValueObjects;
 using Microsoft.Extensions.Configuration;
 
-namespace FileSaver.Adapter.Tests.Implementations;
+namespace FileSaver.Adapter.ValueObjects.Implementations;
 
 public class FileStorageTests
 {
