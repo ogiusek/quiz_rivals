@@ -19,7 +19,9 @@ public class WebSocketStorageTests
     webSocketsStorage = new WebSocketsStorage();
     webSocket = new AppWebSocketMock(
       Id.New(),
-      new Observer<WebSocketMessage>()
+      new Observer<WebSocketMessage>(),
+      new Observer(),
+      new Observer()
     );
   }
   #endregion
