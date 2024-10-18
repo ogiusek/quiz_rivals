@@ -1,6 +1,7 @@
 using System.Net.WebSockets;
 using Common.Api.Abstractions;
 using Common.Types;
+using Common.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;

@@ -1,3 +1,5 @@
+using Common.ValueObjects;
+
 namespace Common.Types;
 
 public record EventListener(

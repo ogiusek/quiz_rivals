@@ -6,11 +6,11 @@ using Common.Types;
 namespace Users.Builder;
 
 internal record UsersOptions(
-  [property: JsonPropertyName("bearer")] string BearerScheme,
-  [property: JsonPropertyName("secret")] string Secret, // node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-  [property: JsonPropertyName("audience")] string Audience,
-  [property: JsonPropertyName("issuer")] string Issuer,
-  [property: JsonPropertyName("expiration_time")] TimeSpan ExpirationTime
+  [property: JsonPropertyName("BearerScheme")] string BearerScheme,
+  [property: JsonPropertyName("Secret")] string Secret, // node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+  [property: JsonPropertyName("Audience")] string Audience,
+  [property: JsonPropertyName("Issuer")] string Issuer,
+  [property: JsonPropertyName("ExpirationTime")] TimeSpan ExpirationTime
 )
 {
   public static string SectionName = "Users";

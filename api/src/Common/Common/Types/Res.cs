@@ -14,8 +14,15 @@ public class Res
 
   public Res() { }
 
-  protected Res(IEnumerable<Exception> exceptions)
-  { Exceptions = exceptions.ToList(); }
+  public Res(Exception exception)
+  {
+    Exceptions = new List<Exception> { exception };
+  }
+
+  public Res(IEnumerable<Exception> exceptions)
+  {
+    Exceptions = exceptions.ToList();
+  }
 
   public static Res Success() => new();
   public static Res Fail(Exception exception) => new([exception]);

@@ -1,6 +1,7 @@
 using Common.Abstractions;
 using Common.AbstractionsImplementations;
 using Common.Types;
+using Common.ValueObjects;
 
 namespace Common.Tests.AbstractionsImplementations;
 

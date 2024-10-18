@@ -1,5 +1,6 @@
 using Common.Abstractions;
 using Common.Types;
+using Common.ValueObjects;
 
 namespace Common.Tests.AbstractionsMocks;
 
@@ -14,10 +15,18 @@ public class AppWebSocketMock : IAppWebSocket
   Common.Abstractions.IObserver<WebSocketMessage> _messageObserver;
   IObserverListener<WebSocketMessage> IAppWebSocket.OnMessage => _messageObserver;
 
-  public AppWebSocketMock(Id id, Common.Abstractions.IObserver<WebSocketMessage> messageObserver)
+  Common.Abstractions.IObserver _openObserver;
+  public IObserverListener OnOpen => _openObserver;
+
+  Common.Abstractions.IObserver _closeObserver;
+  public IObserverListener OnClose => _closeObserver;
+
+  public AppWebSocketMock(Id id, Common.Abstractions.IObserver<WebSocketMessage> messageObserver, Common.Abstractions.IObserver closeObserver, Common.Abstractions.IObserver openObserver)
   {
     _id = id;
     _messageObserver = messageObserver;
+    _openObserver = openObserver;
+    _closeObserver = closeObserver;
   }
 
   public Task<Res> Close()

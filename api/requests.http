@@ -5,3 +5,9 @@ GET {{api}}/routes
 
 ###
 GET {{api}}/ping
+
+###
+GET {{api}}/storage/abecadło/z/żyda/spadło
+
+###
+GET {{api}}/storage/txt/uU0nuZNNPgilLlLX2n2r_sSE7_N6U4DukIj3rOLvzek/f4b77592-5492-473c-b8cd-75430201ceb9.txt

@@ -1,10 +1,11 @@
 using Common.Abstractions;
 using Common.App.Adapters;
 using Common.Types;
+using Common.ValueObjects;
 
 namespace Common.App.AdaptersImplementations;
 
-public sealed class WebSocketsStorage : IWebSocketsStorage
+internal sealed class WebSocketsStorage : IWebSocketsStorage
 {
 #nullable enable
   private readonly Dictionary<Id, IAppWebSocket> _webSockets = new();

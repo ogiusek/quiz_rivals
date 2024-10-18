@@ -6,7 +6,7 @@ namespace Common.App.Builder;
 
 public static class CommonAppBuilder
 {
-  public static IServiceCollection AddCommonApp(this IServiceCollection services)
+  public static IServiceCollection AddWebSocketStorageAdapter(this IServiceCollection services)
   {
     services
       .AddSingleton<IWebSocketsStorage, WebSocketsStorage>();

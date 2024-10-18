@@ -7,7 +7,7 @@ namespace Common.Api.Builder;
 
 public static class CommonApiBuilder
 {
-  public static IServiceCollection AddCommonApi(this IServiceCollection services)
+  public static IServiceCollection AddCommonApiControllers(this IServiceCollection services)
   {
     services
       .AddTransient<Common.Abstractions.IObserver<WebSocketMessage>, Observer<WebSocketMessage>>()
