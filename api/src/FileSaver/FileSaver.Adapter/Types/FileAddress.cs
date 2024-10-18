@@ -1,3 +1,3 @@
-namespace Common.App.Types;
+namespace FileSaver.Adapter.Types;
 
 public sealed record FileAddress(string Address);

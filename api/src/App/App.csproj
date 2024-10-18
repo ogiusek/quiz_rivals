@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Quiz\Quiz.Api\Quiz.Api.csproj" />
     <ProjectReference Include="..\Users\Users\Users.csproj" />
+    <ProjectReference Include="..\FileSaver\FileSaver.Adapter\FileSaver.Adapter.csproj" />
 
     <ProjectReference Include="..\Common\Common\Common.csproj" />
     <ProjectReference Include="..\Common\Common.Api\Common.Api.csproj" />

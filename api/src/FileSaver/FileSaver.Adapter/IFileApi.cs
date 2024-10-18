@@ -1,6 +1,6 @@
-using Common.App.Types;
+using FileSaver.Adapter.Types;
 
-namespace Common.App.Adapters;
+namespace FileSaver.Adapter;
 
 public interface IFileApi
 {

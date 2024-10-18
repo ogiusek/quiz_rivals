@@ -1,28 +1,30 @@
 ﻿using System.Reflection;
-using System.Text;
-using Common.Abstractions;
-using Common.AbstractionsImplementations;
-using Common.Api.Abstractions;
 using Common.Api.Builder;
-using Common.App.Adapters;
-using Common.App.AdaptersImplementations;
 using Common.App.Builder;
-using Common.Types;
+using FileSaver.Adapter.Builder;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using Serilog.Events;
 using Users.Builder;
 
 namespace App;
 
 public static class Program
 {
+  static void AddProjectPath(in IConfiguration configuration)
+  {
+    string assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+    string projectDirectory = assemblyPath.Substring(0, assemblyPath.LastIndexOf("/src", StringComparison.Ordinal));
+    configuration["App:ProjectDirectory"] = projectDirectory;
+  }
+
   public static void Main(string[] args)
   {
     // create add builder and host it
     var builder = WebApplication.CreateBuilder(args);
+    AddProjectPath(builder.Configuration);
 
     LoggerConfiguration loggerConfiguration = new LoggerConfiguration();
     loggerConfiguration.ReadFrom.Configuration(builder.Configuration);
@@ -34,8 +36,9 @@ public static class Program
       .AddTransient(typeof(IHostEnvironment), e => builder.Environment);
 
     builder.Services
-      .AddCommonApp()
-      .AddCommonApi();
+      .AddWebSocketStorageAdapter()
+      .AddFileSaver()
+      .AddCommonApiControllers();
 
     builder.Services
       .AddUsersModule(builder.Configuration);

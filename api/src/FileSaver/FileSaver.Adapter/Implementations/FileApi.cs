@@ -1,14 +1,12 @@
-using Common.App.Adapters;
-using Common.App.Types;
 using Common.Exceptions;
+using FileSaver.Adapter.Types;
 using Microsoft.Extensions.Configuration;
 
-namespace Common.App.AdaptersImplementations;
+namespace FileSaver.Adapter.Implementations;
 
 internal sealed class FileApi : IFileApi
 {
-#nullable enable
-  readonly string _apiUrl;
+  readonly string _storageUrl;
 
   public FileApi(IConfiguration configuration)
   {
@@ -20,13 +18,12 @@ internal sealed class FileApi : IFileApi
     if (appAddress.EndsWith("/"))
       throw new ConfigurationException("App:Address", "Address must not end with '/'");
 
-    _apiUrl = $"{appAddress}/storage";
+    _storageUrl = $"{appAddress}/storage";
   }
 
   public FileAddress GetAddress(FilePath path)
-    => new($"{_apiUrl}/{path.Path}");
+    => new($"{_storageUrl}/{path.Path}");
 
   public FilePath GetPath(FileAddress address)
-    => new(address.Address.Substring($"{_apiUrl}/".Length));
-#nullable restore
+    => new(address.Address.Substring($"{_storageUrl}/".Length));
 }

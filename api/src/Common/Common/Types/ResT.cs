@@ -11,6 +11,8 @@ public sealed class Res<T> : Res
     _value = value;
   }
 
+  public Res(Exception exception) : base(exception) { }
+
   public Res(IEnumerable<Exception> exceptions) : base(exceptions)
   { }
 }

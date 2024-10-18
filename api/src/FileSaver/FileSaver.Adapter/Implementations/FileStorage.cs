@@ -1,16 +1,15 @@
 using System.Security.Cryptography;
-using Common.App.Adapters;
-using Common.App.Types;
 using Common.Exceptions;
 using Common.Methods;
 using Common.Types;
+using FileSaver.Adapter.Exceptions;
+using FileSaver.Adapter.Types;
 using Microsoft.Extensions.Configuration;
 
-namespace Common.App.AdaptersImplementations;
+namespace FileSaver.Adapter.Implementations;
 
 internal sealed class FileStorage : IFileStorage
 {
-#nullable enable
   readonly string _storagePath;
   private SHA256 _sha256 => SHA256.Create();
 
@@ -48,16 +47,6 @@ internal sealed class FileStorage : IFileStorage
     return hash;
   }
 
-  public async Task<Res> RemoveFile(FilePath path)
-  {
-    if (!File.Exists(GetFullPath(path)))
-    {
-      return Res.Fail(new FileNotFoundException(path.Path));
-    }
-    await UntrackFile(path); // File.Delete(filePath);
-    return Res.Success();
-  }
-
   public async Task<FilePath> CreateNewFile(SavableFileStream savableFile, string fileDirectory)
   {
     string fullPath = $"{fileDirectory}/{Guid.NewGuid()}.{savableFile.Extension.Extension}";
@@ -86,7 +75,7 @@ internal sealed class FileStorage : IFileStorage
     File.Delete(trackFile);
     File.Delete(fullPath);
     string directory = Path.GetDirectoryName(fullPath)!;
-    while (Directory.GetFiles(directory).Length == 0)
+    while (Directory.GetFileSystemEntries(directory).Length == 0)
     {
       Directory.Delete(directory);
       directory = Path.GetDirectoryName(directory)!;
@@ -127,8 +116,13 @@ internal sealed class FileStorage : IFileStorage
     return Task.FromResult<FilePath?>(null);
   }
 
-  public async Task<FilePath> SaveFile(SavableFileStream stream)
+  public async Task<Res<FilePath>> Save(SavableFileStream stream)
   {
+    if (!FileExtension.Exists(stream.Extension))
+    {
+      return new(new UnsuportedFileExtensionException(stream.Extension));
+    }
+
     string hash = GetContentHash(stream);
     string fileDirectory = $"{_storagePath}/{stream.Extension.Extension}/{hash}";
 
@@ -137,19 +131,41 @@ internal sealed class FileStorage : IFileStorage
       Directory.CreateDirectory(fileDirectory);
       FilePath filePath = await CreateNewFile(stream, fileDirectory);
       await TrackFile(filePath);
-      return filePath;
+      return new(filePath);
     }
 
     FilePath? existingFile = await FindFile(stream, fileDirectory);
     if (existingFile is not null)
     {
       await TrackFile(existingFile);
-      return existingFile;
+      return new(existingFile);
     }
 
     FilePath newFilePath = await CreateNewFile(stream, fileDirectory);
     await TrackFile(newFilePath);
-    return newFilePath;
+    return new(newFilePath);
   }
-#nullable restore
+
+  public async Task<Res> Remove(FilePath path)
+  {
+    if (!File.Exists(GetFullPath(path)))
+    {
+      return Res.Fail(new FileNotFoundException(path.Path));
+    }
+    await UntrackFile(path); // File.Delete(filePath);
+    return Res.Success();
+  }
+
+  public Task<SavableFileStream?> Get(FilePath path)
+  {
+    string fullPath = GetFullPath(path);
+
+    if (!File.Exists(fullPath))
+      return Task.FromResult<SavableFileStream?>(null);
+
+    FileExtension extension = new(Path.GetExtension(fullPath));
+
+    FileStream file = File.OpenRead(fullPath);
+    return Task.FromResult<SavableFileStream?>(new SavableFileStream(file, extension));
+  }
 }
