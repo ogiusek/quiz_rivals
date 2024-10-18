@@ -1,4 +1,4 @@
-namespace Common.Types;
+namespace Common.ValueObjects;
 
 public record Id(string Value)
 {

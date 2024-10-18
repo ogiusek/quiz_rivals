@@ -1,6 +1,7 @@
 using Common.Abstractions;
 using Common.App.Adapters;
 using Common.Types;
+using Common.ValueObjects;
 
 namespace Common.App.AdaptersImplementations;
 

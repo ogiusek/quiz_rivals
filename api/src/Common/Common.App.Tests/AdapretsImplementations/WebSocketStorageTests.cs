@@ -5,6 +5,7 @@ using Common.App.Adapters;
 using Common.App.AdaptersImplementations;
 using Common.Tests.AbstractionsMocks;
 using Common.Types;
+using Common.ValueObjects;
 
 namespace Common.App.Tests.AdapretsImplementations;
 
