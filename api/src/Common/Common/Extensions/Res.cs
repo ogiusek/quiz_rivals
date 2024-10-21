@@ -14,13 +14,9 @@ public static class ResExt
     throw new AggregateException(res.Exceptions);
   }
 
-  public static void Fail(this Res res, Exception exception)
-  {
+  public static void Fail(this Res res, Exception exception) =>
     res.Exceptions = res.Exceptions.Append(exception);
-  }
-
-  public static void Fail(this Res res, IEnumerable<Exception> exceptions)
-  {
+  public static void Fail(this Res res, IEnumerable<Exception> exceptions) =>
     res.Exceptions = res.Exceptions.Concat(exceptions);
-  }
+  public static void Fail(this Res res, Res other) => res.Fail(other.Exceptions);
 }
