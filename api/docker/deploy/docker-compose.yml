@@ -34,7 +34,5 @@ services:
     depends_on:
       - db
     restart: always
-    environment:
-      - DATABASE_URL=Server=db;Database=database;Username=username;Password=password;
     ports:
       - 5000:5000

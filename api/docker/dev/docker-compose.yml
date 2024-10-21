@@ -11,6 +11,8 @@ services:
         target: /docker/storage
         tmpfs:
           size: 268435456 # 256*2^20 bytes = 256Mb
+    ports:
+      - 5432:5432
     environment:
       POSTGRES_USER: username
       POSTGRES_PASSWORD: password
@@ -39,7 +41,5 @@ services:
     depends_on:
       - db
     restart: always
-    environment:
-      - DATABASE_URL=Server=db;Database=database;Username=username;Password=password;
     ports:
       - 5000:5000
