@@ -10,4 +10,10 @@
     <ProjectReference Include="..\Users.App\Users.App.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+    <!-- <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" /> -->
+  </ItemGroup>
+
 </Project>
