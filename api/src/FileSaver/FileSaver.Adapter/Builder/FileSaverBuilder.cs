@@ -9,8 +9,8 @@ public static class FileSaverBuilder
   public static IServiceCollection AddFileSaver(this IServiceCollection services)
   {
     services
-      .AddScoped<IFileApi, FileApi>()
-      .AddScoped<IFileStorage, FileStorage>();
+      .AddTransient<IFileApi, FileApi>()
+      .AddTransient<IFileStorage, FileStorage>();
 
     services
       .AddControllers()
