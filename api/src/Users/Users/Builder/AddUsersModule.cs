@@ -2,6 +2,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using Common.Extensions;
+using Users.DAL.Builder;
+using Users.App.Builder;
+using Users.Api.Builder;
+using Users.Configuration;
 
 namespace Users.Builder;
 
@@ -12,14 +17,14 @@ public static class AddUsersModuleExt
     IConfiguration section = configuration.GetSection(UsersOptions.SectionName);
     UsersOptions options = section.Get<UsersOptions>() ?? new UsersOptions();
 
-    var isConfigurationValid = options.Validate();
-    if (isConfigurationValid.Exceptions.Any())
-    {
-      throw new AggregateException(isConfigurationValid.Exceptions);
-    }
+    options.Validate().Throw();
 
     services
       .Configure<UsersOptions>(section)
+      .AddSingleton(e => new SigningCredentials(
+        new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Secret)),
+        SecurityAlgorithms.HmacSha256
+      ))
       .AddAuthentication(options.BearerScheme)
       .AddJwtBearer(o =>
       {
@@ -32,6 +37,11 @@ public static class AddUsersModuleExt
           IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Secret))
         };
       });
+
+    services
+      .AddUsersDAL(configuration)
+      .AddUsersApp()
+      .AddUsersApi();
 
     return services;
   }

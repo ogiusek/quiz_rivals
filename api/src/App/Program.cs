@@ -1,6 +1,9 @@
-﻿using System.Reflection;
+﻿using System.Numerics;
+using System.Reflection;
+using System.Text;
 using Common.Api.Builder;
 using Common.App.Builder;
+using Common.Builder;
 using FileSaver.Adapter.Builder;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -22,7 +25,6 @@ public static class Program
 
   public static void Main(string[] args)
   {
-    // create add builder and host it
     var builder = WebApplication.CreateBuilder(args);
     AddProjectPath(builder.Configuration);
 
@@ -38,6 +40,7 @@ public static class Program
     builder.Services
       .AddWebSocketStorageAdapter()
       .AddFileSaver()
+      .AddCommon()
       .AddCommonApiControllers();
 
     builder.Services

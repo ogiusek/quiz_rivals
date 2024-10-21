@@ -124,7 +124,7 @@ internal sealed class FileStorage : IFileStorage
     }
 
     string hash = GetContentHash(stream);
-    string fileDirectory = $"{_storagePath}/{stream.Extension.Extension}/{hash}";
+    string fileDirectory = $"{_storagePath}/extensions/{stream.Extension.Extension}/{hash}";
 
     if (!Directory.Exists(fileDirectory))
     {

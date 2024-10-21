@@ -11,10 +11,11 @@ public sealed class Email : IValueObject<string>
 
   public Email(string value)
   {
-    Value = value;
-    Validate(value).Throw();
+    Value = Format(value);
+    Validate(Value).Throw();
   }
 
+  public static string Format(string value) => value;
   public static Res Validate(string value)
   {
     Res res = Res.Success();

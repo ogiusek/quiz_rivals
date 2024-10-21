@@ -1,4 +1,7 @@
 @api = http://localhost:5000
+@nick = mega_john
+@password = password
+@token = {{login.response.body.$.value}}
 
 ###
 GET {{api}}/routes
@@ -7,7 +10,34 @@ GET {{api}}/routes
 GET {{api}}/ping
 
 ###
-GET {{api}}/storage/abecadło/z/żyda/spadło
+GET {{api}}/authorized/ping
+Authorization: Bearer {{token}}
 
 ###
 GET {{api}}/storage/txt/uU0nuZNNPgilLlLX2n2r_sSE7_N6U4DukIj3rOLvzek/f4b77592-5492-473c-b8cd-75430201ceb9.txt
+
+###
+# @name login
+POST {{api}}/api/verification/register-guest
+Content-Type: application/json
+
+{}
+
+###
+POST {{api}}/api/verification/register
+Content-Type: application/json
+
+{
+  "nick": "{{nick}}",
+  "password": "{{password}}"
+}
+
+###
+# @name login
+POST {{api}}/api/verification/login
+Content-Type: application/json
+
+{
+  "nick": "{{nick}}",
+  "password": "{{password}}"
+}
