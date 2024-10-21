@@ -35,3 +35,10 @@ public class PingController : ApiController
     return Ok(sb.ToString());
   }
 }
+
+[Route("authorized")]
+public class AuthorizedController : ApiController
+{
+  [HttpGet("ping")]
+  public ActionResult Ping() => Ok("Pong is authorized");
+}
