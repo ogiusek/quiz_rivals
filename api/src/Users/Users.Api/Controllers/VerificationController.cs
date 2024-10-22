@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Users.App.Commands;
 using Users.App.Commands.Login;
+using Users.App.Commands.Register;
 using Users.App.Commands.RegisterGuest;
 using Users.App.Services.JwtStorage;
 

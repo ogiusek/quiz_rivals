@@ -14,15 +14,15 @@ public sealed class User
 
   private UserNick _nick;
   public UserNick Nick { get => _nick; init => _nick = value; }
-  public User WithName(UserNick nick) => new(this) { Nick = nick };
+  public User WithNick(UserNick nick) => new(this) { Nick = nick };
 
-  private static IEnumerable<string> _photoExtensions => new List<string> { "png", "jpg", "jpeg", "svg", "webp" };
+  public static IEnumerable<string> PhotoExtensions => new List<string> { "png", "jpg", "jpeg", "svg", "webp" };
   private FilePath _photoPath;
   /// <exception cref="InvalidPhotoExtension">allowed file extensions: [png, jpg, jpeg, svg, webp]</exception>
   public FilePath PhotoPath
   {
     get => _photoPath;
-    init => _photoPath = !_photoExtensions.Contains(value.Extension) ?
+    init => _photoPath = !PhotoExtensions.Contains(value.Extension) ?
       throw new InvalidPhotoExtension(value.Extension) :
       value;
   }

@@ -1,6 +1,6 @@
 using Common.Exceptions;
 
-namespace Users.App.Commands.Login.Exceptions;
+namespace Users.App.Exceptions;
 
 public class UserNotFound : CustomException
 {

@@ -3,7 +3,7 @@ using Common.Extensions;
 using Common.Types;
 using Users.Core.Models.UserModel;
 
-namespace Users.App.Commands;
+namespace Users.App.Commands.Register;
 
 public record RegisterCommand(
   string Nick,

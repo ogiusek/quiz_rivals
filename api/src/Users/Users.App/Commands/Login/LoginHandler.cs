@@ -4,7 +4,7 @@ using Common.Adapters;
 using Common.App.Abstractions;
 using Common.Types;
 using Microsoft.EntityFrameworkCore;
-using Users.App.Commands.Login.Exceptions;
+using Users.App.Exceptions;
 using Users.App.Services.JwtGenerator;
 using Users.App.Services.JwtStorage;
 using Users.Core.Models;
@@ -31,8 +31,7 @@ internal sealed class LoginHandler : ICustomCommandHandler<LoginCommand>
 
   async Task<Res> ICustomCommandHandler<LoginCommand>.Execute(LoginCommand command)
   {
-    string nick = command.Nick;
-    User user = await _usersRepository.Get.AsAsyncEnumerable().Where(u => u.Nick.Value == nick).SingleOrDefaultAsync();
+    User user = await _usersRepository.Get.AsAsyncEnumerable().Where(u => u.Nick.Value == command.Nick).SingleOrDefaultAsync();
 
     if (user is null)
     {

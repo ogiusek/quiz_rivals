@@ -39,7 +39,7 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
     builder
       .Property(x => x.PhotoPath)
       .HasColumnName("photo_path")
-      .HasColumnType("VARCHAR(64)")
+      .HasColumnType("VARCHAR(128)")
       .HasConversion(x => x.Path, x => new FilePath(x))
       .IsRequired();
 
