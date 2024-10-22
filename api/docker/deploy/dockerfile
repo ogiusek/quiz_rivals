@@ -1,7 +1,10 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
-WORKDIR /app
+COPY ./ /app
+
+WORKDIR /app/src/App
 
 EXPOSE 5000
 
-CMD [ "sleep", "infinity" ]
+# CMD [ "sleep", "infinity" ]
+CMD [ "dotnet", "run" ]

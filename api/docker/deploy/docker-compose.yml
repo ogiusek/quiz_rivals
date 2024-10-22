@@ -29,8 +29,8 @@ services:
 
   api:
     build:
-      context: .
-      dockerfile: dockerfile
+      context: ./../../
+      dockerfile: docker/deploy/dockerfile
     depends_on:
       - db
     restart: always
