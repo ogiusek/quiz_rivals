@@ -10,7 +10,7 @@ public static class ResExt
 {
   private static void LogExceptions(IEnumerable<Exception> exceptions)
   {
-    Log.Information("Exceptions: {@Exceptions}", exceptions);
+    Log.Error("Exceptions: {@Exceptions}", exceptions);
   }
 
   public static ActionResult WithSuccess(this Res res, Func<ActionResult> actionResult)

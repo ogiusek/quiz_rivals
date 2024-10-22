@@ -13,7 +13,7 @@ public class FileContentType
 
   public static FileContentType GetContentType(FileExtension extension)
   {
-    PropertyInfo? property = typeof(FileExtension).GetProperty(extension.Extension.ToUpper(), BindingFlags.Public | BindingFlags.Static);
+    PropertyInfo? property = typeof(FileContentType).GetProperty(extension.Extension.ToUpper(), BindingFlags.Public | BindingFlags.Static);
     if (property is null)
     {
       return DEFAULT;
