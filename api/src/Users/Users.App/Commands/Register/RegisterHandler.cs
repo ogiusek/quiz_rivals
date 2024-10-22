@@ -4,6 +4,8 @@ using Common.Adapters;
 using Common.App.Abstractions;
 using Common.Types;
 using Common.ValueObjects;
+using Microsoft.EntityFrameworkCore;
+using Users.App.Exceptions;
 using Users.Core.Models;
 
 namespace Users.App.Commands.Register;
@@ -26,6 +28,17 @@ internal sealed class RegisterHandler : ICustomCommandHandler<RegisterCommand>
 
   async Task<Res> ICustomCommandHandler<RegisterCommand>.Execute(RegisterCommand command)
   {
+    if (command.Nick.ToLower().StartsWith("guest"))
+    {
+      return Res.Fail(new NickIsAlreadyTaken());
+    }
+
+    User existing = await _usersRepository.Get.AsAsyncEnumerable().Where(u => u.Nick.Value == command.Nick).SingleOrDefaultAsync();
+    if (existing is not null)
+    {
+      return Res.Fail(new NickIsAlreadyTaken());
+    }
+
     var user = new User(
       Id.New(),
       new(command.Nick),

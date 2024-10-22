@@ -15,12 +15,15 @@ public sealed class Email : IValueObject<string>
     Validate(Value).Throw();
   }
 
-  public static string Format(string value) => value;
+  public static string Format(string value) => value.ToLower();
   public static Res Validate(string value)
   {
     Res res = Res.Success();
     if (string.IsNullOrWhiteSpace(value))
       res.Fail(new ArgumentException("Email cannot be null or empty"));
+
+    if (value is null)
+      return res;
 
     if (value.Length < 3)
       res.Fail(new ArgumentException("Email must be at least 3 characters long"));

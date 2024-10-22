@@ -5,6 +5,7 @@ using FileSaver.Adapter;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Users.App.Abstractions;
 using Users.App.Services.JwtStorage;
 using Users.Configuration;
 using Users.Core.Models;
@@ -33,8 +34,9 @@ internal class JwtGenerator : IJwtGenerator
   {
     var claims = new List<Claim>
     {
-      new("nick", payload.user.Nick.Value),
-      new("photo", _fileApi.GetAddress(payload.user.PhotoPath).Address),
+      new(SessionClaims.Id, payload.user.Id.Value),
+      new(SessionClaims.Nick, payload.user.Nick.Value),
+      new(SessionClaims.Photo, _fileApi.GetAddress(payload.user.PhotoPath).Address),
     };
 
     DateTime now = _clock.Now;

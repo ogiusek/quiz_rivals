@@ -6,6 +6,11 @@ using Users.App.Commands.RegisterGuest;
 using Users.App.Commands;
 using Users.App.Commands.Register;
 using Users.App.Commands.Login;
+using Users.App.Queries.Profile;
+using Users.App.Commands.SetNick;
+using Users.App.Commands.SetEmail;
+using Users.App.Commands.SetPassword;
+using Users.App.Commands.SetPhoto;
 
 namespace Users.App.Builder;
 
@@ -22,7 +27,14 @@ public static class AddUsersAppExt
     services
       .AddScoped<ICustomCommandHandler<RegisterGuestCommand>, RegisterGuestHandler>()
       .AddScoped<ICustomCommandHandler<RegisterCommand>, RegisterHandler>()
-      .AddScoped<ICustomCommandHandler<LoginCommand>, LoginHandler>();
+      .AddScoped<ICustomCommandHandler<LoginCommand>, LoginHandler>()
+      .AddScoped<ICustomCommandHandler<SetEmailCommand>, SetEmailHandler>()
+      .AddScoped<ICustomCommandHandler<SetNickCommand>, SetNickHandler>()
+      .AddScoped<ICustomCommandHandler<SetPasswordCommand>, SetPasswordHandler>()
+      .AddScoped<ICustomCommandHandler<SetPhotoCommand>, SetPhotoHandler>();
+
+    services
+      .AddScoped<ICustomQueryHandler<ProfileQuery, ProfileQueryResponse>, ProfileQueryHandler>();
     return services;
   }
 }

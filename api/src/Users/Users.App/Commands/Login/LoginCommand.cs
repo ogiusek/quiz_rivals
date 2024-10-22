@@ -14,7 +14,6 @@ public record LoginCommand(
   public Res Validate()
   {
     Res res = Res.Success();
-    res.Fail(UserNick.Validate(Nick));
     if (Password is not null)
       res.Fail(UserPassword.Validate(Password));
     return res;
